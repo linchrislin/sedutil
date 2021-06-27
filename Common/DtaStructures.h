@@ -312,6 +312,7 @@ typedef struct _OPAL_DiskInfo {
     uint32_t Geometry_logicalBlockSize;
     uint64_t Geometry_lowestAlignedLBA;
     uint8_t Enterprise_rangeCrossing : 1;
+    uint8_t Enterprise_timeout : 1;
     uint16_t Enterprise_basecomID;
     uint16_t Enterprise_numcomID;
     uint8_t SingleUser_any : 1;

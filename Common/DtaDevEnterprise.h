@@ -125,6 +125,11 @@ public:
          * @param userid the userid whose password is to be changed 
          * @param newpassword  value password is to be changed to
          */
+	uint8_t setTimeoutEnable(uint8_t enable);
+
+         /** set the property , timeoout, to SED .
+         * @param enable  enable or disable timeout
+         */
 	uint8_t setPassword(char * password, char * userid, char * newpassword);
 	/** dummy code not implemented in the enterprise SSC*/
 	uint8_t setNewPassword_SUM(char * password, char * userid, char * newpassword);
@@ -210,4 +215,5 @@ protected:
 private:
     uint8_t getMaxRanges(char * password, uint16_t *maxRanges);
     uint8_t getMaxRangesOpal(char * password, uint16_t *maxRanges);
+
 };

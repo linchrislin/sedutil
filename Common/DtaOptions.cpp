@@ -139,6 +139,10 @@ uint8_t DtaOptions(int argc, char * argv[], DTA_OPTIONS * opts)
 			opts->output_format = sedutilNormal;
 			outputFormat = sedutilNormal;
 		}
+		else if (!strcmp("-t", argv[i])) {
+			baseOptions += 1;
+			opts->enabletimeout = 1;
+		}
 		else if (!(('-' == argv[i][0]) && ('-' == argv[i][1])) && 
 			(0 == opts->action))
 		{

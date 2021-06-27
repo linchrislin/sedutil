@@ -43,6 +43,7 @@ typedef struct _DTA_OPTIONS {
 	uint8_t lrlength;		/** the length in blocks of a lockingrange */
 
 	bool no_hash_passwords; /** global parameter, disables hashing of passwords */
+    bool enabletimeout; /** timeout for set timeout commands on Eprise SED*/
 	sedutiloutput output_format;
 } DTA_OPTIONS;
 /** Print a usage message */
@@ -82,6 +83,7 @@ typedef enum _sedutiloption {
     setBandsEnabled,
     setBandEnabled,
 	setMBREnable,
+	setTimeoutEnable,
 	setMBRDone,
 	enableuser,
 	activateLockingSP,
