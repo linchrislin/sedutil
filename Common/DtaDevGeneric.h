@@ -210,7 +210,7 @@ public:
          * @param plist  the parameter list for the command
          * 
          */
-	uint8_t setTimeoutEnable(uint8_t enable);
+	uint8_t setTimeout(uint64_t timeout);
 
          /** set the property , timeoout, to SED .
          * @param enable  enable or disable timeout

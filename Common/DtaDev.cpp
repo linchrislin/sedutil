@@ -90,9 +90,9 @@ uint8_t DtaDev::LockingEnabled()
 	LOG(D1) << "Entering DtaDev::LockingEnabled" << (uint16_t)disk_info.Locking_lockingEnabled;
 	return disk_info.Locking_lockingEnabled;
 }
-uint8_t DtaDev::TimeoutEnabled()
+uint64_t DtaDev::getTimeout()
 {
-	LOG(D1) << "Entering DtaDev::TimeoutEnabled" << (uint8_t)disk_info.Enterprise_timeout;
+	LOG(D1) << "Entering DtaDev::getTimeout" << (uint64_t)disk_info.Enterprise_timeout;
 	return disk_info.Enterprise_timeout;
 }
 char *DtaDev::getFirmwareRev()

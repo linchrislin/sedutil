@@ -478,11 +478,11 @@ uint8_t DtaDevEnterprise::setMBREnable(uint8_t mbrstate,	char * Admin1Password)
 	LOG(D1) << "Exiting DtaDevEnterprise::setMBREnable";
 	return 0;
 }
-uint8_t DtaDevEnterprise::setTimeoutEnable(uint8_t enable)
+uint8_t DtaDevEnterprise::setTimeout(uint64_t timeout)
 {
-	LOG(D1) << "Entering DtaDevEnterprise::setTimeoutEnable";
+	LOG(D1) << "Entering DtaDevEnterprise::setTimeout";
 
-    disk_info.Enterprise_timeout = 1;
+    disk_info.Enterprise_timeout = timeout;
 	return 0;
 }
 uint8_t DtaDevEnterprise::setMBRDone(uint8_t mbrstate, char * Admin1Password)
@@ -1507,25 +1507,26 @@ uint8_t DtaDevEnterprise::properties()
 	delete props;
 	LOG(D1) << "Leaving DtaDevEnterprise::properties()";
 
-
     uint32_t i = 0, j = 0;
 	for (i = 0, j = 1; i < propertiesResponse.getTokenCount(); i++) {
 		if (OPAL_TOKEN::ENDLIST == propertiesResponse.tokenIs(i)) {
             //don't search furhter for the rest of host properites.
             break;
 		}
-		if (OPAL_TOKEN::STARTNAME == propertiesResponse.tokenIs(i)) {
-			if (OPAL_TOKEN::DTA_TOKENID_BYTESTRING == propertiesResponse.tokenIs(i + 1)) {
-    			if ( propertiesResponse.getString(i + 1).compare("MaxSessionTimeout")) {
-                    cout << "maxSess:" << propertiesResponse.getUint64(i + 2);
-    			}
-    			if ( propertiesResponse.getString(i + 1).compare("MinSessionTimeout")) {
-                    cout << "minSess:" << propertiesResponse.getUint64(i + 2);
-    			}
-				i += 2;
-				j++;
-			}
-		}	
+		if (OPAL_TOKEN::STARTNAME != propertiesResponse.tokenIs(i)) {
+            continue;
+        }
+        if (OPAL_TOKEN::DTA_TOKENID_BYTESTRING != propertiesResponse.tokenIs(i + 1)) {
+            continue;
+        }
+        if ( propertiesResponse.getString(i + 1).compare("MaxSessionTimeout") == 0) {
+            maxSessTimeout = propertiesResponse.getUint64(i + 2) ;
+        }
+        if ( propertiesResponse.getString(i + 1).compare("MinSessionTimeout") == 0) {
+            minSessTimeout = propertiesResponse.getUint64(i + 2) ;
+        }
+        i += 2;
+        j++;
 	}
 	return 0;
 }
@@ -1562,6 +1563,12 @@ void DtaDevEnterprise::puke()
 		if ((j % 3) != 0)
 			cout << std::endl;
 	}
+}
+uint64_t DtaDevEnterprise::getMaxTimeout() {
+    return maxSessTimeout;
+}
+uint64_t DtaDevEnterprise::getMinTimeout() {
+    return minSessTimeout;
 }
 uint8_t DtaDevEnterprise::rawCmd(char *sp, char *hexauth, char *pass,
 	char *hexinvokingUID, char *hexmethod,char *hexparms)

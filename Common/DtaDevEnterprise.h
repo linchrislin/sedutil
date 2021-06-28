@@ -125,7 +125,7 @@ public:
          * @param userid the userid whose password is to be changed 
          * @param newpassword  value password is to be changed to
          */
-	uint8_t setTimeoutEnable(uint8_t enable);
+	uint8_t setTimeout(uint64_t timeout);
 
          /** set the property , timeoout, to SED .
          * @param enable  enable or disable timeout
@@ -210,10 +210,14 @@ public:
 	uint8_t rawCmd(char *sp, char *hexauth, char *pass,
 		char *hexinvokingUID, char *hexmethod, char *hexparms);
 
+	uint64_t getMaxTimeout();
+	uint64_t getMinTimeout();
 protected:
 	uint8_t getDefaultPassword();
 private:
-    uint8_t getMaxRanges(char * password, uint16_t *maxRanges);
-    uint8_t getMaxRangesOpal(char * password, uint16_t *maxRanges);
+    uint8_t  getMaxRanges(char * password, uint16_t *maxRanges);
+    uint8_t  getMaxRangesOpal(char * password, uint16_t *maxRanges);
+    uint64_t minSessTimeout;
+    uint64_t maxSessTimeout;
 
 };
