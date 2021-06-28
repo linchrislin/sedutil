@@ -41,9 +41,9 @@ typedef struct _DTA_OPTIONS {
 	uint8_t lockingstate;  /**< locking state to set a lockingrange to */
 	uint8_t lrstart;		/** the starting block of a lockingrange */
 	uint8_t lrlength;		/** the length in blocks of a lockingrange */
+    uint64_t timeout; /** timeout for set timeout commands on Enterprise SED*/
 
 	bool no_hash_passwords; /** global parameter, disables hashing of passwords */
-    bool timeout; /** timeout for set timeout commands on Eprise SED*/
 	sedutiloutput output_format;
 } DTA_OPTIONS;
 /** Print a usage message */

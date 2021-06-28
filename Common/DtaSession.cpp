@@ -138,7 +138,6 @@ DtaSession::start(OPAL_UID SP, char * HostChallenge, vector<uint8_t> SignAuthori
         uint64_t min = sed->getMinTimeout();
         uint64_t max = sed->getMaxTimeout();
             
-        printf ("max, min, vlaue %ld %ld%ld\n",max, min, value);
         if (min <= value || value <= max) {
             cmd->addToken(OPAL_TOKEN::STARTNAME);
             cmd->addToken("SessionTimeout");
