@@ -22,6 +22,7 @@ along with sedutil.  If not, see <http://www.gnu.org/licenses/>.
 #include "DtaSession.h"
 #include "DtaOptions.h"
 #include "DtaDev.h"
+#include "DtaDevEnterprise.h"
 #include "DtaCommand.h"
 #include "DtaResponse.h"
 #include "DtaEndianFixup.h"
@@ -131,12 +132,19 @@ DtaSession::start(OPAL_UID SP, char * HostChallenge, vector<uint8_t> SignAuthori
 	// w/o the timeout the session may wedge and require a power-cycle,
 	// e.g., when interrupted by ^C. 60 seconds is inconveniently long,
 	// but revert may require that long to complete.
-	if (d->isEprise()) {
-		cmd->addToken(OPAL_TOKEN::STARTNAME);
-		cmd->addToken("SessionTimeout");
-		cmd->addToken(60000);
-		cmd->addToken(OPAL_TOKEN::ENDNAME);
-	}
+	if (d->isEprise() && d->getTimeout() ) {
+        uint64_t value = d->getTimeout();
+        DtaDevEnterprise *sed = dynamic_cast<DtaDevEnterprise *>(d);
+        uint64_t min = sed->getMinTimeout();
+        uint64_t max = sed->getMaxTimeout();
+            
+        if (min <= value || value <= max) {
+            cmd->addToken(OPAL_TOKEN::STARTNAME);
+            cmd->addToken("SessionTimeout");
+            cmd->addToken(value);
+            cmd->addToken(OPAL_TOKEN::ENDNAME);
+        }
+    }
 
     cmd->addToken(OPAL_TOKEN::ENDLIST); // ]  (Close Bracket)
     cmd->complete();

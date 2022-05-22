@@ -93,6 +93,11 @@ uint8NOCODE(eraseLockingRange_SUM, uint8_t lockingrange, char * password)
 uint8NOCODE(takeOwnership, char * newpassword)
 uint8NOCODE(setSIDPassword,char * oldpassword, char * newpassword,
 	uint8_t hasholdpwd, uint8_t hashnewpwd)
+uint8_t DtaDevGeneric::setTimeout(uint64_t timeout)
+{
+	LOG(E) << "Generic Device class does not support function " << "comID" << std::endl; 
+		return 0xff; 
+}
 uint16_t DtaDevGeneric::comID()
 {
 	LOG(E) << "Generic Device class does not support function " << "comID" << std::endl; 

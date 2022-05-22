@@ -1834,3 +1834,7 @@ uint8_t DtaDevOpal::rawCmd(char *sp, char * hexauth, char *pass,
 	LOG(D1) << "Exiting DtaDevEnterprise::rawCmd";
 	return 0;
 }
+uint8_t DtaDevOpal::setTimeout(uint64_t timeout) {
+	LOG(E) << "Opal Device class does not support function " << "comID" << std::endl; 
+		return 0xff; 
+}

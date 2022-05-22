@@ -52,7 +52,7 @@ int isValidSEDDisk(char *devname)
 
 int main(int argc, char * argv[])
 {
-	DTA_OPTIONS opts;
+	DTA_OPTIONS opts = {0};
 	DtaDev *tempDev = NULL, *d = NULL;
 	if (DtaOptions(argc, argv, &opts)) {
 		return DTAERROR_COMMAND_ERROR;
@@ -78,8 +78,10 @@ int main(int argc, char * argv[])
 			if (tempDev->isOpal1())
 				d = new DtaDevOpal1(argv[opts.device]);
 			else
-				if (tempDev->isEprise())
+				if (tempDev->isEprise()) {
 					d = new DtaDevEnterprise(argv[opts.device]);
+                    d->setTimeout(opts.timeout);
+                }
 				else
 				{
 					LOG(E) << "Unknown OPAL SSC ";

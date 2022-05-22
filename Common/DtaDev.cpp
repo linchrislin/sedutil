@@ -90,6 +90,11 @@ uint8_t DtaDev::LockingEnabled()
 	LOG(D1) << "Entering DtaDev::LockingEnabled" << (uint16_t)disk_info.Locking_lockingEnabled;
 	return disk_info.Locking_lockingEnabled;
 }
+uint64_t DtaDev::getTimeout()
+{
+	LOG(D1) << "Entering DtaDev::getTimeout" << (uint64_t)disk_info.Enterprise_timeout;
+	return disk_info.Enterprise_timeout;
+}
 char *DtaDev::getFirmwareRev()
 {
 	return (char *)&disk_info.firmwareRev;
@@ -103,9 +108,9 @@ char *DtaDev::getSerialNum()
 	return (char *)&disk_info.serialNum;
 }
 DTA_DEVICE_TYPE DtaDev::getDevType()
-	{
-		return disk_info.devType;
-	}
+{
+	return disk_info.devType;
+}
 void DtaDev::discovery0()
 {
     LOG(D1) << "Entering DtaDev::discovery0()";

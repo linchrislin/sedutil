@@ -45,6 +45,8 @@ public:
 	/** Does the device conform to the OPAL Enterprise SSC */
 	uint8_t isEprise();
 	/** Does the device conform to ANY TCG storage SSC */
+	uint64_t getTimeout();
+	/** Does the enprise device need itimeout property? */
 	uint8_t isAnySSC();
 	/** Is the MBREnabled flag set */
 	uint8_t MBREnabled();
@@ -213,6 +215,10 @@ public:
 	 * @param password password of locking sp administrative authority
 	 * @param userid  the user to be enabled
 	 */
+	virtual uint8_t setTimeout(uint64_t timeout) = 0;
+    /** set the property , timeoout, to SED .
+     * @param enable  enable or disable timeout
+     */
 	virtual uint8_t enableUser(char * password, char * userid, OPAL_TOKEN status = OPAL_TOKEN::OPAL_TRUE) = 0;
 	/** Enable locking on the device
 	 * @param password password of the admin sp SID authority

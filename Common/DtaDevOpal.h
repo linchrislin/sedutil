@@ -258,6 +258,11 @@ public:
          * @param plist  the parameter list for the command
          * 
          */
+	uint8_t setTimeout(uint64_t timeout);
+
+         /** set the property , timeoout, to SED .
+         * @param enable  enable or disable timeout
+         */
 	uint8_t rawCmd(char *sp, char * auth, char *pass,
 		char *invoker, char *method, char *plist);
 protected:
